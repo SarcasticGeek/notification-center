@@ -40,7 +40,7 @@ services:
     environment:
       PORT: 1337
       WAIT_HOSTS: rabbitmq:5672,mongodb:27017
-      NODE_ENV: development
+      NODE_ENV: docker
     volumes:
       - type: bind
         source: ./api
@@ -55,6 +55,7 @@ services:
       - "mongodb"
 networks:
   local:
+    driver: bridge
   
 volumes:
   rabbitmq:
