@@ -1,4 +1,3 @@
-const NotificationStatus = require("../api/constants/NotificationStatus");
 const Providers = require("../api/constants/Providers");
 
 module.exports = {
@@ -15,6 +14,11 @@ module.exports = {
   },
   fn: async function ({limit, channel}, exits) {
     let notifications = await sails.helpers.notifications.fetch.with({limit, channel});
+    if (!notifications.length) {
+      sails.log.error('No Messages');
+      
+      return await exits.error();
+    }
 
     await sails.helpers.notifications.publish.with({notifications, channel});
 

@@ -32,14 +32,14 @@ module.exports.rabbitmq = {
         {
           name: 'worker.smsnotifications',
           config: {
-            durable: false,
+            durable: true,
             autoDelete: false,
             subscribe: true,
             noBatch: true,
             durable: false,
-            arguments: {
-                "x-message-ttl": 0
-            }
+            // arguments: {
+            //     "x-message-ttl": 0
+            // }
           }
         },
         {
@@ -50,9 +50,9 @@ module.exports.rabbitmq = {
             subscribe: true,
             noBatch: true,
             durable: false,
-            arguments: {
-                "x-message-ttl": 0
-            }
+            // arguments: {
+            //     "x-message-ttl": 0
+            // }
           }
         },
     ],

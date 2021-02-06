@@ -1,5 +1,7 @@
+const Providers = require("../constants/Providers");
+
 exports.default = {
   fn: async function (message) {
-    console.log('sending to SMS provider', message.body);
+    await sails.helpers.notifications.send.with({channel: Providers.SMS, notifications: message.body});
   }
 };

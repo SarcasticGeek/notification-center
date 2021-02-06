@@ -20,11 +20,11 @@ module.exports = {
         channel: inputs.channel,
       },
       limit: inputs.limit,
-      sort: priority
+      sort: 'priority ASC'
     });
 
-    let ids = notifications.map(notification => notification.id);
-    await sails.helpers.notifications.changeStatus.with({ids, nextStatus: NotificationStatus.IN_PROGRESS});
+    let ids = await notifications.map(notification => notification.id);
+    await sails.helpers.notifications.changestatus.with({ids, nextStatus: NotificationStatus.IN_PROGRESS});
 
     return await notifications;
   }
