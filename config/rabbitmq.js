@@ -28,27 +28,50 @@ module.exports.rabbitmq = {
           persistent: true
         }
       } ],
-      queues: [{
-        name: 'worker.notifications',
-        config: {
-          durable: false,
-          autoDelete: false,
-          subscribe: true,
-          noBatch: true,
-          durable: false,
-          arguments: {
-              "x-message-ttl": 0
+      queues: [
+        {
+          name: 'worker.smsnotifications',
+          config: {
+            durable: false,
+            autoDelete: false,
+            subscribe: true,
+            noBatch: true,
+            durable: false,
+            arguments: {
+                "x-message-ttl": 0
+            }
           }
-        }
-      }],
-      bindings: [{
-        exchange: 'worker',
-        target: 'worker.notifications',
-        key: 'notifications'
-      }]
+        },
+        {
+          name: 'worker.emailnotifications',
+          config: {
+            durable: false,
+            autoDelete: false,
+            subscribe: true,
+            noBatch: true,
+            durable: false,
+            arguments: {
+                "x-message-ttl": 0
+            }
+          }
+        },
+    ],
+      bindings: [
+        {
+          exchange: 'worker',
+          target: 'worker.smsnotifications',
+          key: 'smsnotifications'
+        },
+        {
+          exchange: 'worker',
+          target: 'worker.emailnotifications',
+          key: 'emailsnotifications'
+        },
+    ]
     }
   ],
   routes: [
-    { queue: 'worker.notifications',  action: '/notifications' }
+    { queue: 'worker.smsnotifications',  action: '/smsnotifications' },
+    { queue: 'worker.emailnotifications',  action: '/emailnotifications' }
   ]
 };

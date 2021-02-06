@@ -1,5 +1,5 @@
 exports.default = {
   fn: async function (message) {
-    console.log('test', message.body);
+    console.log('sending to SMS provider', message.body);
   }
 };
