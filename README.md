@@ -5,12 +5,7 @@
 Model of Notification
 
 ```json
-const NotificationPrioritieis = require("../constants/NotificationPrioritieis");
-const NotificationStatus = require("../constants/NotificationStatus");
-const NotificationTypes = require("../constants/NotificationTypes");
-const Providers = require("../constants/Providers");
-
-module.exports = {
+{
     id: {
       type: 'string',
       columnName: '_id'
@@ -55,6 +50,7 @@ module.exports = {
       defaultsTo: NotificationPrioritieis.LOW,
       description: "priority of message if it's immediate or not"
     }
+}
 ```
 
 ![System Design figure](./system.jpg)
