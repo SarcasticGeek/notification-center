@@ -1,0 +1,61 @@
+version: "3.7"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_VHOST: "/"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    volumes:
+      - type: volume
+        source: rabbitmq
+        target: /var/lib/rabbitmq/mnesia
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - local
+  mongodb:
+    image: mongo:4.2
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: "admin"
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "root"
+    volumes:
+      - type: bind
+        source: ./mongodb/docker-entrypoint-initdb.d
+        target: /docker-entrypoint-initdb.d
+      - type: volume
+        source: mongodb
+        target: /data
+    networks:
+      - local
+  api:
+    build: ./
+    image: notification-center:latest
+    ports:
+      - 1337:1337
+    environment:
+      PORT: 1337
+      WAIT_HOSTS: rabbitmq:5672,mongodb:27017
+      NODE_ENV: development
+    volumes:
+      - type: bind
+        source: ./api
+        target: /var/app/current/api
+      - type: bind
+        source: ./config
+        target: /var/app/current/config
+    networks:
+      - local
+    depends_on:
+      - "rabbitmq"
+      - "mongodb"
+networks:
+  local:
+  
+volumes:
+  rabbitmq:
+  mongodb:
