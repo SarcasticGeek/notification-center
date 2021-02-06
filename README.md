@@ -1,26 +1,36 @@
 # notification-center
 
-a [Sails v1](https://sailsjs.com) application
+## HOW TO INSTALL (without docker)
 
+- You must have `node version above v12` ,mongodb ,and rabbitmq
+- install `sails.js` --> `npm run -g sails`
+- then run `npm install`
+## APIS
 
-### Links
+POST /notification
+headers: Content-Type: application/json
+body:
+```json
+{
+    "body": "hello",
+    "type": "individual",
+    "channel": "sms",
+    "receivers": [
+        {
+            "phone": 1234344
+        }
+    ]
+}
+```
+## Commands
 
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
+`sails run chunk-notifications --limit={integer: the limit of notifactions in a chunk} --channel={string: type of provider (sms or email)}`
 
+## HOW TO TEST
 
-### Version info
+1. hit in the postman(or like that) the API above
+2. then run `sails run chunk-notifications --limit=1 --channel=sms`
 
-This app was originally generated on Fri Jan 29 2021 01:37:19 GMT+0200 (Eastern European Standard Time) using Sails v1.2.4.
+## Author
 
-<!-- Internally, Sails used [`sails-generate@1.17.2`](https://github.com/balderdashy/sails-generate/tree/v1.17.2/lib/core-generators/new). -->
-
-
-
-<!--
-Note:  Generators are usually run using the globally-installed `sails` CLI (command-line interface).  This CLI version is _environment-specific_ rather than app-specific, thus over time, as a project's dependencies are upgraded or the project is worked on by different developers on different computers using different versions of Node.js, the Sails dependency in its package.json file may differ from the globally-installed Sails CLI release it was originally generated with.  (Be sure to always check out the relevant [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version of Sails used by your app.  If you're stuck, [get help here](https://sailsjs.com/support).)
--->
-
+- Mohamed Essam Fathalla <mohamedessamfathalla@gmail.com>
