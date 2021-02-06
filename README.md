@@ -5,6 +5,11 @@
 - You must have `node version above v12` ,mongodb ,and rabbitmq
 - install `sails.js` --> `npm run -g sails`
 - then run `npm install`
+
+
+## HOW TO INSTALL (with docker)
+
+- RUN `docker-compose up`
 ## APIS
 
 POST /notification
@@ -30,6 +35,7 @@ body:
 
 1. hit in the postman(or like that) the API above
 2. then run `sails run chunk-notifications --limit=1 --channel=sms`
+ Or with docker `docker-compose exec api  sails run chunk-notifications --limit=1 --channel=sms`
 
 ## Author
 
