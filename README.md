@@ -91,8 +91,25 @@ body:
 
 ## HOW TO TEST
 
-1. hit in the postman(or like that) the API above
-2. then run `sails run chunk-notifications --limit=1 --channel=sms`
+1. run `cp config/local-temp.js config/local.js`
+2. run `sails lift`
+3. hit in the postman(or like that) the API 
+POST /notification
+headers: Content-Type: application/json
+body:
+```json
+{
+    "body": "hello",
+    "type": "individual",
+    "channel": "sms",
+    "receivers": [
+        {
+            "phone": 1234344
+        }
+    ]
+}
+```
+4. then run `sails run chunk-notifications --limit=1 --channel=sms`
  Or with docker `docker-compose exec api  sails run chunk-notifications --limit=1 --channel=sms`
 
 ## TODO
