@@ -9,7 +9,7 @@
     "@sailshq/lodash": "^3.10.4",
     "@sailshq/socket.io-redis": "^5.2.0",
     "grunt": "1.4.0",
-    "sails": "^1.4.2",
+    "sails": "^1.4.3",
     "sails-hook-better-rabbitmq": "^1.1.0",
     "sails-hook-grunt": "^4.0.1",
     "sails-hook-orm": "^3.0.2",
