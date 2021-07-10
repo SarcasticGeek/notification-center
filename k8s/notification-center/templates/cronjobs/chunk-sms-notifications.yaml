@@ -1,0 +1,45 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "notification-center.fullname" . }}-chunk-sms-notifications
+  namespace: notification-center
+spec:
+  concurrencyPolicy: Allow
+  jobTemplate:
+    spec:
+      parallelism: 2
+      template:
+        spec:
+          containers:
+            - args:
+                - NODE_ENV=docker sails run chunk-notifications --limit=1000 --channel=sms
+              command:
+                - /bin/sh
+                - -c
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              name: {{ include "notification-center.fullname" . }}-chunk-sms-notifications
+              resources: {}
+              volumeMounts:
+              - mountPath: /var/www/html/current/env
+                name: {{ include "notification-center.fullname" . }}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+          volumes:
+          - name: {{ include "notification-center.fullname" . }}
+            configMap:
+              name: {{ include "notification-center.fullname" . }}
+              items:
+                - key: notification-center-config
+                  path: docker.js
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+          {{- with .Values.tolerations }}
+          tolerations:
+              {{- toYaml . | nindent 12 }}
+          {{- end }}
+  schedule: '* * * * *'
+  successfulJobsHistoryLimit: 3

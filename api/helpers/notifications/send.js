@@ -1,4 +1,5 @@
 const NotificationStatus = require("../../constants/NotificationStatus");
+const Providers = require("../../constants/Providers");
 
 module.exports = {
   friendlyName: 'Send',
@@ -16,6 +17,19 @@ module.exports = {
   fn: async function ({notifications, channel}) {
     for (const notification of notifications) {
       try {
+        const providerInputs = {receivers: notification.receivers, body: notification.body, type: notification.type};
+
+        switch (channel) {
+          case Providers.SMS:
+            await sails.helpers.sms.send.with(providerInputs);
+            break;
+          case Providers.EMAIL:
+            await sails.helpers.email.send.with(providerInputs);
+            break;
+          default:
+            break;
+        }
+
         console.log(`sending to ${channel} provider`, notification);
         await sails.helpers.notifications.changestatus.with({ids: notification.id, nextStatus: NotificationStatus.SENT});
       } catch (error) {

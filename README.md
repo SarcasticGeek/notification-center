@@ -70,7 +70,7 @@ limited. (with adding the priority in each notifaction to send the highest ones 
 - RUN `docker-compose up`
 
 
-## HOW TO INSTALL (with K8S)
+## HOW TO INSTALL (inside a Kubernetes Cluster)
 
 - you can find the helm chart on (k8s) folder
 ## APIS
@@ -92,7 +92,7 @@ body:
 ```
 ## Commands
 
-`sails run chunk-notifications --limit={integer: the limit of notifactions in a chunk} --channel={string: type of provider (sms or email)}`
+`NODE_ENV={env} sails run chunk-notifications --limit={integer: the limit of notifactions in a chunk} --channel={string: type of provider (sms or email)}`
 
 ## HOW TO TEST
 
@@ -113,8 +113,8 @@ body:
     ]
 }
 ```
-4. then run `sails run chunk-notifications --limit=1 --channel=sms`
- Or with docker `docker-compose exec api  sails run chunk-notifications --limit=1 --channel=sms`
+4. then run `NODE_ENV=dev sails run chunk-notifications --limit=1 --channel=sms`
+ Or with docker `docker-compose exec api NODE_ENV=docker sails run chunk-notifications --limit=1 --channel=sms`
 
 ## TODO
 

@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "notification-center.fullname" . }}-chunk-notifications
+  name: {{ include "notification-center.fullname" . }}-chunk-email-notifications
   namespace: notification-center
 spec:
   concurrencyPolicy: Allow
@@ -12,13 +12,13 @@ spec:
         spec:
           containers:
             - args:
-                - NODE_ENV=docker sails run chunk-notifications --limit=1000 --channel=sms
+                - NODE_ENV=docker sails run chunk-notifications --limit=1000 --channel=email
               command:
                 - /bin/sh
                 - -c
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
-              name: {{ include "notification-center.fullname" . }}-chunk-notifications
+              name: {{ include "notification-center.fullname" . }}-chunk-email-notifications
               resources: {}
               volumeMounts:
               - mountPath: /var/www/html/current/env
