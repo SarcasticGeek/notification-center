@@ -15,63 +15,61 @@ module.exports.rabbitmq = {
     failAfter: 30,
     retryLimit: 400
   },
-  channels: [
-    {
-      name: 'channel_1',
-      default: true,
-      prefetch: 1,
-      exchanges: [ {
-        name: 'worker',
-        type: 'topic',
-        config: {
-          autoDelete: false,
-          persistent: true
+  channels: [{
+    name: 'channel_1',
+    default: true,
+    prefetch: 1,
+    exchanges: [{
+      name: 'worker',
+      type: 'topic',
+      config: {
+        autoDelete: false,
+        persistent: true
+      }
+    }],
+    queues: [{
+      name: 'worker.smsnotifications',
+      config: {
+        durable: true,
+        autoDelete: false,
+        subscribe: true,
+        noBatch: true,
+        durable: false,
+        arguments: {
+          "x-message-ttl": ['I', '3600000']
         }
-      } ],
-      queues: [
-        {
-          name: 'worker.smsnotifications',
-          config: {
-            durable: true,
-            autoDelete: false,
-            subscribe: true,
-            noBatch: true,
-            durable: false,
-            // arguments: {
-            //     "x-message-ttl": 0
-            // }
-          }
-        },
-        {
-          name: 'worker.emailnotifications',
-          config: {
-            durable: false,
-            autoDelete: false,
-            subscribe: true,
-            noBatch: true,
-            durable: false,
-            // arguments: {
-            //     "x-message-ttl": 0
-            // }
-          }
-        },
+      }
+    },
+    {
+      name: 'worker.emailnotifications',
+      config: {
+        durable: false,
+        autoDelete: false,
+        subscribe: true,
+        noBatch: true,
+        durable: false,
+      }
+    },
     ],
-      bindings: [
-        {
-          exchange: 'worker',
-          target: 'worker.smsnotifications',
-          key: 'smsnotifications'
-        },
-        {
-          exchange: 'worker',
-          target: 'worker.emailnotifications',
-          key: 'emailsnotifications'
-        },
+    bindings: [{
+      exchange: 'worker',
+      target: 'worker.smsnotifications',
+      key: 'smsnotifications'
+    },
+    {
+      exchange: 'worker',
+      target: 'worker.emailnotifications',
+      key: 'emailsnotifications'
+    },
     ]
-    }
-  ],
-  routes: [
-    { queue: 'worker.smsnotifications',  action: '/smsnotifications' },
-    { queue: 'worker.emailnotifications',  action: '/emailnotifications' }
+  }],
+  routes: [{
+    queue: 'worker.smsnotifications',
+    action: '/smsnotifications'
+  },
+  {
+    queue: 'worker.emailnotifications',
+    action: '/emailnotifications'
+  }
   ]
 };
