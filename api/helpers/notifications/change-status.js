@@ -1,5 +1,5 @@
 module.exports = {
-  friendlyName: 'Fetch',
+  friendlyName: 'changeStatus',
   description: 'Fetch limitied notifications by channel',
   inputs: {
     ids: {
@@ -12,6 +12,8 @@ module.exports = {
     }
   },
   fn: async function ({ids, nextStatus}) {
-    return await Notification.update({id: ids}).set({status: nextStatus});
+    await Notification.update({id: ids}).set({status: nextStatus});
+
+    return Notification.find({id: ids});
   }
 };

@@ -2,6 +2,7 @@ const NotificationPrioritieis = require("../constants/NotificationPrioritieis");
 const NotificationStatus = require("../constants/NotificationStatus");
 const NotificationTypes = require("../constants/NotificationTypes");
 const Providers = require("../constants/Providers");
+const uuid = require('uuid');
 
 module.exports = {
   tableName: 'notifications',
@@ -10,6 +11,10 @@ module.exports = {
     id: {
       type: 'string',
       columnName: '_id'
+    },
+    uuid: {
+      type: 'string',
+      defaultsTo: uuid.v4(),
     },
     body: {
       type: 'string',

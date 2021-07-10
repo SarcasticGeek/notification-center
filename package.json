@@ -11,7 +11,8 @@
     "sails-hook-better-rabbitmq": "^1.1.0",
     "sails-hook-orm": "^3.0.2",
     "sails-hook-sockets": "^2.0.1",
-    "sails-mongo": "^2.0.0"
+    "sails-mongo": "^2.0.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "chai": "^4.3.4",
