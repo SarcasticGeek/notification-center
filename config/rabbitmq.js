@@ -36,7 +36,7 @@ module.exports.rabbitmq = {
         noBatch: true,
         durable: false,
         arguments: {
-          "x-message-ttl": ['I', '3600000']
+          'x-message-ttl': 3600000,
         }
       }
     },
