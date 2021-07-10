@@ -19,4 +19,4 @@ USER node
 EXPOSE 1337
 
 # Start the application
-CMD NODE_ENV=docker npm run init
+CMD NODE_ENV=docker node app.js
