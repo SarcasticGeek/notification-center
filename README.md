@@ -91,9 +91,8 @@ body:
 
 ## HOW TO TEST
 
-1. run `cp config/local-temp.js config/local.js`
-2. run `sails lift`
-3. hit in the postman(or like that) the API 
+1. run `npm start`
+2. hit in the postman(or like that) the API 
 POST /notification
 headers: Content-Type: application/json
 body:
