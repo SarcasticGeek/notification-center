@@ -118,7 +118,6 @@ body:
 
 ## TODO
 
-- Adding Unit testing and integration
 - Adding the Providers of SMS and Email like interfaces
 
 ## Author
