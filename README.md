@@ -68,6 +68,11 @@ limited. (with adding the priority in each notifaction to send the highest ones 
 ## HOW TO INSTALL (with docker)
 
 - RUN `docker-compose up`
+
+
+## HOW TO INSTALL (with K8S)
+
+- you can find the helm chart on (k8s) folder
 ## APIS
 
 POST /notification

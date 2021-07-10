@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "notification-center.fullname" . }}
+  labels:
+  {{- include "notification-center.labels" . | nindent 8 }}
+data:
+  notification-center-config: |
+    module.exports = {
+      port: {{ .Values.service.port | quote }},
+      datastores: {
+        mongodb: {
+          adapter: 'sails-mongo',
+          host: {{ .Values.configmap.MONGODB.HOST | quote }},
+          port: {{ .Values.configmap.MONGODB.PORT | quote }},
+          database: {{ .Values.configmap.MONGODB.DATABASE | quote }},
+          user: {{ .Values.configmap.MONGODB.USER | quote }},
+          password: {{ .Values.configmap.MONGODB.PASSWORD | quote }},
+        },
+        rabbitmq: {
+          connections: [{ 
+            host: {{ .Values.configmap.RABBITMQ.HOST | quote }},
+            username: {{ .Values.configmap.RABBITMQ.USERNAME | quote }},
+            password: {{ .Values.configmap.RABBITMQ.PASSWORD | quote }},
+        }],
+      },
+    };
