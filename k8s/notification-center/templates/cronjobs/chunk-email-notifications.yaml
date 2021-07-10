@@ -21,7 +21,7 @@ spec:
               name: {{ include "notification-center.fullname" . }}-chunk-email-notifications
               resources: {}
               volumeMounts:
-              - mountPath: /var/www/html/current/env
+              - mountPath: /var/app/current/env
                 name: {{ include "notification-center.fullname" . }}
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
