@@ -23,10 +23,10 @@ module.exports = {
      */
     switch (type) {
       case NotificationTypes.GROUP:
-        console.log(`Hit the EMAIL SDK to Send bulk SMSs`, body, receivers);
+        sails.log(`Hit the EMAIL SDK to Send bulk SMSs`, body, receivers);
         break;
       case NotificationTypes.INDIVIDUAL:
-        console.log(`Hit the EMAIL SDK to Send a SMS`, body, receivers);
+        sails.log(`Hit the EMAIL SDK to Send a SMS`, body, receivers);
         break;
     }
   }

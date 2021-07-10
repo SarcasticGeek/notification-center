@@ -12,19 +12,21 @@ module.exports = {
       defaultsTo: Providers.SMS
     }
   },
-  fn: async function ({limit, channel}, exits) {
-    let notifications = await sails.helpers.notifications.fetch.with({limit, channel});
+  fn: async function ({
+    limit,
+    channel
+  }, exits) {
+    let notifications = await sails.helpers.notifications.chunk.with({
+      limit,
+      channel
+    });
+
     if (!notifications.length) {
       sails.log.error('No Messages');
-      
+
       return await exits.error();
     }
 
-    await sails.helpers.notifications.publish.with({notifications, channel});
-
     return await exits.success();
   }
-
-
 };
-

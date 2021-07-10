@@ -30,9 +30,9 @@ module.exports = {
             break;
         }
 
-        console.log(`sending to ${channel} provider`, notification);
         return await sails.helpers.notifications.changeStatus.with({ids: notification.id, nextStatus: NotificationStatus.SENT});
-      } catch (error) {
+      } catch (err) {
+        sails.log.warn(err);
         return await sails.helpers.notifications.changeStatus.with({ids: notification.id, nextStatus: NotificationStatus.FAILED});
       }
     }
